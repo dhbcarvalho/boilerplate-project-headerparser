@@ -35,12 +35,10 @@ var listener = app.listen(process.env.PORT, function () {
 
 //iniciando as configurações
 
-let responseObject = {}
-app.enable("trust proxy")
-
-app.get("/api/whoami", (request, response)=>{
-  responseObject["ipadress"] = request.ip
-  responseObject["language"] = request.get("Accept-Language")
-  responseObject["software"] = request.get("User-Agent")
-response.json(responseObject)
+app.get("/api/whoami", function (req, res){
+res.json({
+"ipaddress" : req.connection.remoteAddress ,
+"language" : req.headers["accept-language"],
+"software" : req.headers["user-agent"]
+})
 })
