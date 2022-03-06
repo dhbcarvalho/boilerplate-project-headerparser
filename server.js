@@ -31,3 +31,16 @@ app.get("/api/hello", function (req, res) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+
+//iniciando as configurações
+
+let responseObject = {}
+app.enable("trust proxy")
+
+app.get("/api/whoami", (request, response)=>{
+  responseObject["ipadress"] = request.ip
+  responseObject["language"] = request.get("Accept-Language")
+  responseObject["software"] = request.get("User-Agent")
+response.json(responseObject)
+})
